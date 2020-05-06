@@ -25,7 +25,7 @@ def _init_fn(worker_id):
 
 class replayLoader(Dataset):
 
-    def __init__(self, csv_file, root_dir, frames_ps):
+    def __init__(self, csv_file, root_dir, frames_per_video):
         """
         Args:
             csv_file (string): Path to the csv file with annotations.
@@ -34,7 +34,7 @@ class replayLoader(Dataset):
         reader = pd.read_csv(csv_file)
         self.samples = reader
         self.root_dir = root_dir
-        self.frames_ps = frames_ps
+        self.frames_per_video = frames_per_video
 
     def __len__(self):
         return len(self.samples)
@@ -47,11 +47,15 @@ class replayLoader(Dataset):
                                 self.samples.iloc[idx, 0])
         video = imageio.get_reader(img_name, "ffmpeg")
 
-        jump = 25/self.frames_ps # Assuming all videos are 25fps
+        meta_data = video.get_meta_data()
+        fps = meta_data['fps']
+        duration = meta_data['duration']
+        n_frames = np.ceil(duration*fps)
+        hop = int(n_frames/self.frames_per_video)
 
         frames = []
         for i, im in enumerate(video):
-            if i % jump == 0:
+            if i % hop == 0:
                 frames.append(im)
 
         frames = np.stack(frames)
@@ -63,9 +67,9 @@ class replayLoader(Dataset):
 
         label = self.samples.iloc[idx, 1]
         if label == 'client':
-            label = np.zeros((frames.shape[0], 1))
+            label = np.array(0)
         else:
-            label = np.ones((frames.shape[0], 1))
+            label = np.array(1)
         label = torch.from_numpy(label)
         sample = {'image': frames, 'label': label}
         return sample
