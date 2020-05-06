@@ -73,6 +73,7 @@ class replayLoader(Dataset):
                 frames.append(im)
 
         frames = np.stack(frames)
+        #import pdb;pdb.set_trace()
         frames = frames.transpose(0, 3, 1, 2)
 
         frames = np.divide(frames, 255)
@@ -86,7 +87,6 @@ class replayLoader(Dataset):
             label = np.array(1)
         label = torch.from_numpy(label)
         sample = {'image': frames, 'label': label}
-        #import pdb;pdb.set_trace()
         return sample
 
 
@@ -129,7 +129,7 @@ class Datasampler(torch.utils.data.Sampler):
             sampler = WeightedRandomSampler(samples_weight, len(samples_weight))
             #import pdb;pdb.set_trace()
             self.iter2=list(sampler)
-            print( self.iter2)
+            #print( self.iter2)
             return (self.iter2[i] for i in range(len(self.iter2)))
 
 
@@ -139,13 +139,13 @@ class Datasampler(torch.utils.data.Sampler):
 
 
 
-def run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size=4,n_wor=8):
+def run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size=4,n_wor=0):
     data_train= replayLoader(csv_file_tr,root_dir_tr,frames_ps)
     data_test= replayLoader(csv_file_te,root_dir_te,frames_ps)
     sampler_tr=Datasampler(data_train,batch_size)
     
-    dataloader_tr=DataLoader(data_train,batch_size,shuffle=False,sampler=sampler_tr,num_workers=n_wor,worker_init_fn=_init_fn)
-    #dataloader_tr=DataLoader(data_train,batch_size,shuffle=True,num_workers=n_wor,worker_init_fn=_init_fn)
+    #dataloader_tr=DataLoader(data_train,batch_size,shuffle=False,drop_last=True,sampler=sampler_tr,num_workers=n_wor,worker_init_fn=_init_fn)
+    dataloader_tr=DataLoader(data_train,batch_size,shuffle=True,drop_last=True,num_workers=n_wor,worker_init_fn=_init_fn)
     dataloader_te=DataLoader(data_test,batch_size,shuffle=False,num_workers=n_wor,worker_init_fn=_init_fn)
     data= {'train':dataloader_tr,'test':dataloader_te}
     return data         
