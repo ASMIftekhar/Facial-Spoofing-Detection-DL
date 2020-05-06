@@ -74,12 +74,12 @@ class replayLoader(Dataset):
         sample = {'image': frames, 'label': label}
         return sample
 
-def run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size=4,n_wor=0):
+def run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size=4,n_wor=4):
     data_train= replayLoader(csv_file_tr,root_dir_tr,frames_ps)
     data_test= replayLoader(csv_file_te,root_dir_te,frames_ps)
     dataloader_tr=DataLoader(data_train,batch_size,shuffle=True,num_workers=n_wor,worker_init_fn=_init_fn)
     dataloader_te=DataLoader(data_test,batch_size,shuffle=False,num_workers=n_wor,worker_init_fn=_init_fn)
-    data= {'train':dataloader_tr,'val':dataloader_te}
+    data= {'train':dataloader_tr,'test':dataloader_te}
     return data         
 
 if __name__=="__main__":
