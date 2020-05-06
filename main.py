@@ -321,8 +321,9 @@ def run():
                         
                         },filename=folder_name+'/'+'bestcheckpoint.pth.tar')
           
-        with open(folder_name+'/'+'plot.json','w') as fp:
-          json.dump([plot_train,plot_test,learning_rate],fp)
+        if inf=='f':
+            with open(folder_name+'/'+'plot.json','w') as fp:
+                json.dump([plot_train,plot_test,learning_rate],fp)
            
 
     #import pdb;pdb.set_trace()
