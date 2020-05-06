@@ -2,8 +2,25 @@ import os
 import torch
 import pandas as pd
 import numpy as np
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset,DataLoader
 import imageio
+import random
+from tqdm import tqdm
+
+
+##### Fixing Seed #################
+seed=10
+torch.manual_seed(seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+np.random.seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+random.seed(seed)
+def _init_fn(worker_id):
+    np.random.seed(int(seed))
+##############################
+
 
 
 class replayLoader(Dataset):
@@ -52,3 +69,35 @@ class replayLoader(Dataset):
         label = torch.from_numpy(label)
         sample = {'image': frames, 'label': label}
         return sample
+
+def run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size=4,n_wor=0):
+    data_train= replayLoader(csv_file_tr,root_dir_tr,frames_ps)
+    data_test= replayLoader(csv_file_te,root_dir_te,frames_ps)
+    dataloader_tr=DataLoader(data_train,batch_size,shuffle=True,num_workers=n_wor,worker_init_fn=_init_fn)
+    dataloader_te=DataLoader(data_test,batch_size,shuffle=False,num_workers=n_wor,worker_init_fn=_init_fn)
+    data= {'train':dataloader_tr,'val':dataloader_te}
+    return data         
+
+if __name__=="__main__":
+    
+    csv_file_tr='dataset/dataset_replay/train/data.csv'
+    csv_file_te='dataset/dataset_replay/test/data.csv'
+    root_dir_tr='dataset/dataset_replay/train/'
+    root_dir_te='dataset/dataset_replay/test/'
+    frames_ps=1
+
+
+    data=run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te)
+    phases=['train','test']
+    for i in phases:
+        for k in tqdm(data[i]):
+            pass
+            #import pdb;pdb.set_trace()
+
+
+    
+
+
+
+
+
