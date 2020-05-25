@@ -19,7 +19,3 @@ with open('OULU.csv', mode='w', newline='') as csv_file:
             label = 'imposter'
         writer.writerow([words[-1], label])
 
-
-
-
-a = 5
