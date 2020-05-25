@@ -1,11 +1,11 @@
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Protocols.tar' -O /media/data/spoof_data/tmp.tar
-tar xvf tmp.tar Protocols/ && rm /media/data/spoof_data/tmp.tar
+tar xvf /media/data/spoof_data/tmp.tar Protocols/ && rm /media/data/spoof_data/tmp.tar
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Train_files.tar' -O /media/data/spoof_data/tmp.tar
-tar xvf tmp.tar Train_files/ && rm /media/data/spoof_data/tmp.tar
+tar xvf /media/data/spoof_data/tmp.tar Train_files/ && rm /media/data/spoof_data/tmp.tar
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Test_files.tar' -O /media/data/spoof_data/tmp.tar
-tar xvf tmp.tar Test_files/ && rm /media/data/spoof_data/tmp.tar
+tar xvf /media/data/spoof_data/tmp.tar Test_files/ && rm /media/data/spoof_data/tmp.tar
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Dev_files.tar' -O /media/data/spoof_data/tmp.tar
-tar xvf tmp.tar Dev_files/ && rm /media/data/spoof_data/tmp.tar
+tar xvf /media/data/spoof_data/tmp.tar Dev_files/ && rm /media/data/spoof_data/tmp.tar
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Baseline.tar' -O /media/data/spoof_data/tmp.tar
-tar xvf tmp.tar Baseline/ && rm /media/data/spoof_data/tmp.tar
+tar xvf /media/data/spoof_data/tmp.tar Baseline/ && rm /media/data/spoof_data/tmp.tar
 wget --user=Oulu_NPU --password='6!0metr1c5' --progress=bar:force 'http://www.ee.oulu.fi/research/bmetric/Oulu_NPU/Readme.pdf' -O /media/data/spoof_data/Readme.pdf
