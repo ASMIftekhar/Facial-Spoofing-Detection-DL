@@ -6,6 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler, RandomSampler, BatchSampler, WeightedRandomSampler
 import imageio
 import random
+from scipy.misc import imresize
 from tqdm import tqdm
 
 ##### Fixing Seed #################
@@ -73,7 +74,7 @@ class OuluLoader(Dataset):
         for i, im in enumerate(video):
             # if i % hop == 0:
             if i in place:
-                frames.append(im)
+                frames.append(imresize(im, (108, 192))
 
         frames = np.stack(frames)
         # import pdb;pdb.set_trace()
