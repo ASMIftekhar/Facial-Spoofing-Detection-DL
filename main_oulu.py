@@ -1,5 +1,5 @@
 import argparse
-import replayLoader as dt
+import ouluLoader as dt
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,10 +15,10 @@ from tqdm import tqdm
 
 
 
-csv_file_tr='dataset/dataset_replay/train/data.csv'
-csv_file_te='dataset/dataset_replay/test/data.csv'
-root_dir_tr='dataset/dataset_replay/train/'
-root_dir_te='dataset/dataset_replay/test/'
+csv_file_tr='OULU_train.csv'
+csv_file_te='OULU_test.csv'
+root_dir_tr='/media/data/spoof_data/Train_files'
+root_dir_te='/media/data/spoof_data/Test_files'
 
 
 #Creating the results directory##########
