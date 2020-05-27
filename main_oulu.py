@@ -9,6 +9,7 @@ import random
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import average_precision_score
 from network import cnn_lstm as eff_nt
 
 from tqdm import tqdm
