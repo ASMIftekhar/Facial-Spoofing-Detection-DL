@@ -325,8 +325,17 @@ def run():
             with open(folder_name+'/'+'plot.json','w') as fp:
                 json.dump([plot_train,plot_test,learning_rate],fp)
            
-
-    #import pdb;pdb.set_trace()
+        elif inf=='t':
+            preds_bin=np.where(np.array(preds)>0.5,1,0)
+            accr=accuracy_score(gd, preds_bin)
+            ap=average_precision_score(gd,preds)
+            
+            print("Accuracy: {},AP: {}".format(accr,ap))
+            #import pdb;pdb.set_trace()
+            gd_s=[k.item() for k in gd]
+            preds_s=[k.item() for k in preds]
+            with open(folder_name+'/'+'predictions.json','w') as fp:
+                json.dump([gd_s,preds_s],fp)
 
     #  submission_df = pd.DataFrame({"Ground_Truth":gd, "label": preds})
     #  submission_df.to_csv("submission.csv", index=False)

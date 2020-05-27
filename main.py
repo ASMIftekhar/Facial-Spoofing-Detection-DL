@@ -9,6 +9,8 @@ import random
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import average_precision_score
+
 from network import cnn_lstm as eff_nt
 
 from tqdm import tqdm
@@ -324,6 +326,18 @@ def run():
         if inf=='f':
             with open(folder_name+'/'+'plot.json','w') as fp:
                 json.dump([plot_train,plot_test,learning_rate],fp)
+        elif inf=='t':
+            preds_bin=np.where(np.array(preds)>0.5,1,0)
+            accr=accuracy_score(gd, preds_bin)
+            ap=average_precision_score(gd,preds)
+            
+            print("Accuracy: {},AP: {}".format(accr,ap))
+            #import pdb;pdb.set_trace()
+            gd_s=[k.item() for k in gd]
+            preds_s=[k.item() for k in preds]
+            with open(folder_name+'/'+'predictions.json','w') as fp:
+                json.dump([gd_s,preds_s],fp)
+            
            
 
     #import pdb;pdb.set_trace()
