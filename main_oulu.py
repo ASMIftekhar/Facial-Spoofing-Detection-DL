@@ -155,7 +155,7 @@ optimizer = optim.Adam([{"params":trainables,"lr":learning_rate}],betas=(0.9, 0.
 #rnn=nn.DataParallel(rnn)
 net.cuda()
 ### Scheuduler ######
-lambda1 = lambda epoch: 1.0 if epoch < 2 else (0.01 if epoch < 2 else 0.001)  
+lambda1 = lambda epoch: 1.0 if epoch < 4 else (0.01 if epoch < 2 else 0.001)  
 scheduler=optim.lr_scheduler.LambdaLR(optimizer,[lambda1])
 ###############################3
 
