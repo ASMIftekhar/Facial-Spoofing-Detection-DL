@@ -2,11 +2,11 @@ import os
 import csv
 import glob
 
-path = 'C:\\Users\Raphael\\Downloads\\Train_files'
+path = '/media/data/spoof_data/Train_files'
 
 file_names = glob.glob(os.path.join(path, '*.avi'))
 
-with open('OULU.csv', mode='w', newline='') as csv_file:
+with open('OULU_train.csv', mode='w', newline='') as csv_file:
     writer = csv.writer(csv_file)
 
     for file in file_names:
