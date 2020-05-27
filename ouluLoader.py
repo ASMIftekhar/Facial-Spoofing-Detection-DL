@@ -74,6 +74,7 @@ class OuluLoader(Dataset):
         for i, im in enumerate(video):
             # if i % hop == 0:
             if i in place:
+                import pdb; pdb_set_trace()
                 frames.append(resize(im, (108, 192))
 
         frames = np.stack(frames)
