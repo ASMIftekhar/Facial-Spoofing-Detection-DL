@@ -31,7 +31,7 @@ p_dev = [p1_dev, p2_dev]
 
 if args.type == 'Train':
     p = p_tr[args.protocol - 1]
-elif args.type == 'Test:
+elif args.type == 'Test':
     p = p_te[args.protocol - 1]
 else:
     p = p_dev[args.protocol - 1]
