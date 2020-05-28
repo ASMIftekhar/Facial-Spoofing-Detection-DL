@@ -32,8 +32,8 @@ except OSError as exc:
 
 
 
-pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', None)
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_colwidth', 1000)
 ### Inputs ####
 parser=argparse.ArgumentParser()
 parser.add_argument('-e','--number_of_epochs',type=int,required=False,default=100,help='Number_of_Epochs')
