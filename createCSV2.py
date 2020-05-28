@@ -14,19 +14,19 @@ path = args.path
 
 # Train protocols defs
 p1_tr = {'session': [1, 2], 'phone': range(1, 6), 'users': range(1, 20), 'attacks': range(1, 5)}
-p2_tr = {'session': [1, 2, 3], 'phone': range(1, 6), 'users': range(36, 55), 'attacks': [2, 4]}
+p2_tr = {'session': [1, 2, 3], 'phone': range(1, 6), 'users': range(1, 20), 'attacks': [1, 2, 4]}
 p_tr = [p1_tr, p2_tr]
 
 # Test protocols defs
-p1_te = {'session': [3], 'phone': range(1, 6), 'users': range(1, 20), 'attacks': range(1, 5)}
-p2_te = {'session': [1, 2, 3], 'phone': range(1, 6), 'users': range(36, 55), 'attacks': [3, 5]}
+p1_te = {'session': [3], 'phone': range(1, 6), 'users': range(36, 55), 'attacks': range(1, 5)}
+p2_te = {'session': [1, 2, 3], 'phone': range(1, 6), 'users': range(36, 55), 'attacks': [1, 3, 5]}
 p_te = [p1_te, p2_te]
 
 if args.type == 'Train':
-    p = p_tr[args.protocol]
+    p = p_tr[args.protocol - 1]
 else:
-    p = p_te[args.protocol]
-
+    p = p_te[args.protocol - 1]
+    
 file_names = glob.glob(os.path.join(path, '*.avi'))
 
 output_name = 'OULU_' + args.type + str(args.protocol) + '.csv'
@@ -53,6 +53,3 @@ with open(output_name, mode='w', newline='') as csv_file:
             writer.writerow([words[-1], label])
 
 
-
-
-a = 5
