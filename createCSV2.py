@@ -35,7 +35,7 @@ with open(output_name, mode='w', newline='') as csv_file:
     writer = csv.writer(csv_file)
 
     for file in file_names:
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         words = file.split('/')
         #codes = words[-1].split('_')[-1]
         codes = words[-1].split('_')
