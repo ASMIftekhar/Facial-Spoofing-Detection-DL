@@ -29,7 +29,9 @@ else:
 
 file_names = glob.glob(os.path.join(path, '*.avi'))
 
-with open('OULU.csv', mode='w', newline='') as csv_file:
+output_name = 'OULU_' + args.type + str(args.protocol) + '.csv'
+
+with open(output_name, mode='w', newline='') as csv_file:
     writer = csv.writer(csv_file)
 
     for file in file_names:
