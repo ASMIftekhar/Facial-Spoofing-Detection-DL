@@ -22,7 +22,7 @@ p1_te = {'session': [3], 'phone': range(1, 6), 'users': range(1, 20), 'attacks':
 p2_te = {'session': [1, 2, 3], 'phone': range(1, 6), 'users': range(36, 55), 'attacks': [3, 5]}
 p_te = [p1_te, p2_te]
 
-if parser.type == 'Train':
+if args.type == 'Train':
     p = p_tr[args.protocol]
 else:
     p = p_te[args.protocol]
@@ -35,6 +35,7 @@ with open(output_name, mode='w', newline='') as csv_file:
     writer = csv.writer(csv_file)
 
     for file in file_names:
+        import pdb; pdb.set_trace()
         words = file.split('\\')
         #codes = words[-1].split('_')[-1]
         codes = words[-1].split('_')
