@@ -20,8 +20,8 @@ p2_tr = {'session': [1, 2, 3], 'phone': range(1, 6+1), 'users': range(1, 20+1), 
 p_tr = [p1_tr, p2_tr]
 
 # Test protocols defs
-p1_te = {'session': [3], 'phone': range(1, 6+1), 'users': range(36+1, 55+1), 'attacks': range(1, 5+1)}
-p2_te = {'session': [1, 2, 3], 'phone': range(1, 6+1), 'users': range(36+1, 55+1), 'attacks': [1, 3, 5]}
+p1_te = {'session': [3], 'phone': range(1, 6+1), 'users': range(36, 55+1), 'attacks': range(1, 5+1)}
+p2_te = {'session': [1, 2, 3], 'phone': range(1, 6+1), 'users': range(36, 55+1), 'attacks': [1, 3, 5]}
 p_te = [p1_te, p2_te]
 
 if args.type == 'Train':
