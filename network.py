@@ -64,7 +64,12 @@ class cnn_lstm(nn.Module):
     
     
 
-    output=self.classification(torch.cat(lstms)).squeeze()
+    #output=self.classification(torch.cat(lstms)).squeeze()
+    output_tmp=self.classification(torch.cat(lstms))
+    if output_tmp.shape[0]==1:
+        output=output_tmp[0]
+    else:
+         output=output_tmp.squeeze()
     return output
 
 
