@@ -16,10 +16,6 @@ from tqdm import tqdm
 
 
 
-csv_file_tr='OULU_train.csv'
-csv_file_te='OULU_test.csv'
-root_dir_tr='/media/data/spoof_data/Train_files'
-root_dir_te='/media/data/spoof_data/Test_files'
 
 
 #Creating the results directory##########
@@ -48,6 +44,9 @@ parser.add_argument('-r','--resume_model',type=str,required=False,default='f',he
 parser.add_argument('-i','--only_inference',type=str,required=False,default='f',help='For doing only inference no training')
 parser.add_argument('-nw','--number_of_workers',type=int,required=False,default=4,help='Number_of_workers')
 parser.add_argument('-h_l','--hyper_load',type=str,required=False,default='f',help='If this flag is t then the model will load stored hyper parameters')
+
+parser.add_argument('-p', '--path', type=str, required=False, default='/media/data/spoof_data', help='Path to data')
+parser.add_argument('-pr','--protocol',type=int,required=False,default=1,help='Protocol for OULU')
 #################
 args=parser.parse_args()
 batch_size=args.batch_size
@@ -60,7 +59,15 @@ inf=args.only_inference
 epoch_num=args.number_of_epochs
 folder_name='results'+'/'+args.first_word 
 hyp=args.hyper_load
-#import pdb;pdb.set_trace()
+
+root_dir_tr=os.path.join(args.path,'Train_files')
+root_dir_te=os.path.join(args.path,'Test_files')
+csv_file_tr='OULU_Train{}.csv'.format(args.protocol)
+csv_file_te='OULU_Test{}.csv'.format(args.protocol)
+
+
+
+import pdb;pdb.set_trace()
 
 ###### Fixing Seed #################
 seed=10
