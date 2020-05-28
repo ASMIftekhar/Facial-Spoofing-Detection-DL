@@ -24,10 +24,17 @@ p1_te = {'session': [3], 'phone': range(1, 6+1), 'users': range(36, 55+1), 'atta
 p2_te = {'session': [1, 2, 3], 'phone': range(1, 6+1), 'users': range(36, 55+1), 'attacks': [1, 3, 5]}
 p_te = [p1_te, p2_te]
 
+# Dev protocols defs
+p1_dev = {'session': [1, 2], 'phone': range(1, 6+1), 'users': range(21, 35+1), 'attacks': range(1, 5+1)}
+p2_dev = {'session': [1, 2, 3], 'phone': range(1, 6+1), 'users': range(21, 35+1), 'attacks': [1, 2, 4]}
+p_dev = [p1_dev, p2_dev]
+
 if args.type == 'Train':
     p = p_tr[args.protocol - 1]
-else:
+elif args.type == 'Test:
     p = p_te[args.protocol - 1]
+else:
+    p = p_dev[args.protocol - 1]
     
 file_names = glob.glob(os.path.join(path, '*.avi'))
 
