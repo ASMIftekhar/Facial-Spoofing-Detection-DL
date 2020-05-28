@@ -144,4 +144,4 @@ dmypy.json
 *.pth.tar
 *.npy
 dataset/
-
+*.csv
