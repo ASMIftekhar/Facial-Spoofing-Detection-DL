@@ -33,8 +33,10 @@ if args.type == 'Train':
     p = p_tr[args.protocol - 1]
 elif args.type == 'Test':
     p = p_te[args.protocol - 1]
-else:
+elif args.type == 'Dev':
     p = p_dev[args.protocol - 1]
+    
+print(p)
     
 file_names = glob.glob(os.path.join(path, '*.avi'))
 
