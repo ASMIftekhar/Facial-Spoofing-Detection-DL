@@ -12,6 +12,7 @@ print("loading backbone network")
 start=time.time()
 #model=EfficientNet.from_pretrained("efficientnet-b0")
 model=models.resnet152(pretrained=True,progress=True).float()
+#model=models.resnet50(pretrained=True,progress=True).float()
 print("loading done")
 
 

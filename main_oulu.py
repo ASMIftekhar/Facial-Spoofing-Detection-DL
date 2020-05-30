@@ -89,25 +89,32 @@ def _init_fn(worker_id):
 #import pdb;pdb.set_trace()
 ##############################
 frozen_endpoints=(
-#    #### EfficientNet#####
-        'pretrain._conv_stemweight',
-        'pretrain._bn0weight',
-        'pretrain._bn0bias',
-        'pretrain._blocks0',
-        'pretrain._blocks1',
-        'pretrain._blocks2',
-        'pretrain._blocks3',
-        'pretrain._blocks4',
-        'pretrain._blocks5',
-        'pretrain._blocks6',
-        'pretrain._blocks7',
-        'pretrain._blocks8',
-        'pretrain._blocks9',
-        'pretrain._blocks10',
-        'pretrain._blocks11',
-        'pretrain._blocks12',
-        'pretrain._blocks13',
-        'pretrain_blocks14',
+ ####### Resnets #########       
+        'pretrain.0',
+        'pretrain.1',
+        'pretrain.2',
+        'pretrain.3',
+        'pretrain.4',
+        'pretrain.5',      
+##    #### EfficientNet#####
+#        'pretrain._conv_stemweight',
+#        'pretrain._bn0weight',
+#        'pretrain._bn0bias',
+#        'pretrain._blocks0',
+#        'pretrain._blocks1',
+#        'pretrain._blocks2',
+#        'pretrain._blocks3',
+#        'pretrain._blocks4',
+#        'pretrain._blocks5',
+#        'pretrain._blocks6',
+#        'pretrain._blocks7',
+#        'pretrain._blocks8',
+#        'pretrain._blocks9',
+#        'pretrain._blocks10',
+#        'pretrain._blocks11',
+#        'pretrain._blocks12',
+#        'pretrain._blocks13',
+#        'pretrain_blocks14',
 )
 ###########################
 
@@ -142,7 +149,8 @@ for name, p in net.named_parameters():
     #print(name)
     #freeze=name.split('.')[1]+'.'+name.split('.')[2]
     try:
-        freeze=name.split('.')[1]+'.'+name.split('.')[2]+name.split('.')[3]
+        #freeze=name.split('.')[1]+'.'+name.split('.')[2]+name.split('.')[3]
+        freeze=name.split('.')[1]+'.'+name.split('.')[2]### Resnet ###
     except:
         pass
     if freeze in frozen_endpoints:

@@ -11,7 +11,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
 
-from network import cnn_lstm as eff_nt
+from network_replay import cnn_lstm as eff_nt
 
 from tqdm import tqdm
 
@@ -83,27 +83,36 @@ def _init_fn(worker_id):
 #import pdb;pdb.set_trace()
 ##############################
 frozen_endpoints=(
+
+        
+ ####### Resnets #########       
+        'pretrain.0',
+        'pretrain.1',
+        'pretrain.2',
+        'pretrain.3',
+        'pretrain.4',
+        'pretrain.5',      
 #    #### EfficientNet#####
-        'pretrain._conv_stemweight',
-        'pretrain._bn0weight',
-        'pretrain._bn0bias',
-        'pretrain._blocks0',
-        'pretrain._blocks1',
-        'pretrain._blocks2',
-        'pretrain._blocks3',
-        'pretrain._blocks4',
-        'pretrain._blocks5',
-        'pretrain._blocks6',
-        'pretrain._blocks7',
-        'pretrain._blocks8',
-        'pretrain._blocks9',
-        'pretrain._blocks10',
-        'pretrain._blocks11',
-        'pretrain._blocks12',
-        'pretrain._blocks13',
-        'pretrain_blocks14',
+#        'pretrain._conv_stemweight',
+#        'pretrain._bn0weight',
+#        'pretrain._bn0bias',
+#        'pretrain._blocks0',
+#        'pretrain._blocks1',
+#        'pretrain._blocks2',
+#        'pretrain._blocks3',
+#        'pretrain._blocks4',
+#        'pretrain._blocks5',
+#        'pretrain._blocks6',
+#        'pretrain._blocks7',
+#        'pretrain._blocks8',
+#        'pretrain._blocks9',
+#        'pretrain._blocks10',
+#        'pretrain._blocks11',
+#        'pretrain._blocks12',
+#        'pretrain._blocks13',
+#        'pretrain_blocks14',
 )
-###########################
+############################
 
 #Creating the folder where the results would be stored##########
 
@@ -132,11 +141,13 @@ trainables=[]
 not_trainables=[]
 for name, p in net.named_parameters():
     
-    #import pdb;pdb.set_trace()
     #print(name)
     #freeze=name.split('.')[1]+'.'+name.split('.')[2]
     try:
-        freeze=name.split('.')[1]+'.'+name.split('.')[2]+name.split('.')[3]
+        #import pdb;pdb.set_trace()
+        #freeze=name.split('.')[1]+'.'+name.split('.')[2]+name.split('.')[3]### Efficientnet ###
+        freeze=name.split('.')[1]+'.'+name.split('.')[2]### Resnet ###
+	
     except:
         pass
     if freeze in frozen_endpoints:
