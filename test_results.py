@@ -48,15 +48,43 @@ def getNewMetrics(GT, pred, labels, threshold):
     return [real_score, print_score, display_score]
 
 
+def run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev):
 
-CSV_file = 'OULU_Test1.csv'
-CSV_file_dev = 'OULU_Dev1.csv'
+    labels = []
+    with open(CSV_file, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for line in reader:
+            codes = line[0].split('_')
+            type = codes[-1][0]
+            labels.append(int(type))
+    labels = np.array(labels)
 
-pred_test = 'predictions_test.json'
-pred_dev = 'predictions_dev.json'
+  #  GT_dev = np.array(result_dev[0])
+  #  pred_dev = np.array(result_dev[1])
+
+    threshold = tuneHTER(np.array(GT_dev),np.array(pred_dev))
+
+    # GT and predictions on test set
+  #  GT = np.array(result_test[0])
+  #  pred = np.array(result_test[1])
+
+    metrics = getNewMetrics(np.array(GT), np.array(pred), labels, threshold)
+
+    APCER = np.max(metrics[1:])
+    final_score = (metrics[0] + APCER) / 2
+
+    print('Final score is -> APCER {} | BPCER {} | ACER {}'.format(APCER, metrics[0], final_score))
+    return [APCER, metrics[0], final_score]
+
+
 
 if __name__ == "__main__":
     # Get predictions for test and dev set
+    CSV_file = 'OULU_Test1.csv'
+    CSV_file_dev = 'OULU_Dev1.csv'
+
+    pred_test = 'predictions_test.json'
+    pred_dev = 'predictions_dev.json'
     with open(pred_test) as handle:
         result_test = json.load(handle)
     with open(pred_dev) as handle:

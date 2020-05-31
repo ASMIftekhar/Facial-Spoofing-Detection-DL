@@ -141,8 +141,9 @@ class Datasampler(torch.utils.data.Sampler):
         return len(self.iter)
 
 
-def run(csv_file_tr, root_dir_tr, frames_ps, csv_file_te, root_dir_te, batch_size=4, n_wor=0):
+def run(csv_file_tr, root_dir_tr, frames_ps, csv_file_te, root_dir_te, csv_file_dv, root_dir_dv,batch_size=4, n_wor=0):
     data_train = OuluLoader(csv_file_tr, root_dir_tr, frames_ps)
+    data_dv = OuluLoader(csv_file_dv, root_dir_dv, frames_ps)
     data_test = OuluLoader(csv_file_te, root_dir_te, frames_ps)
     sampler_tr = Datasampler(data_train, batch_size)
 
@@ -150,7 +151,8 @@ def run(csv_file_tr, root_dir_tr, frames_ps, csv_file_te, root_dir_te, batch_siz
     dataloader_tr = DataLoader(data_train, batch_size, shuffle=True, drop_last=True, num_workers=n_wor,
                                worker_init_fn=_init_fn)
     dataloader_te = DataLoader(data_test, batch_size, shuffle=False, num_workers=n_wor, worker_init_fn=_init_fn)
-    data = {'train': dataloader_tr, 'test': dataloader_te}
+    dataloader_dv = DataLoader(data_dv, batch_size, shuffle=False, num_workers=n_wor, worker_init_fn=_init_fn)
+    data = {'train': dataloader_tr, 'test': dataloader_te,'dev':dataloader_dv}
     return data
 
 

@@ -11,7 +11,8 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
 from network import cnn_lstm as eff_nt
-
+#import test_results as test_re
+import testResultsOULU as test_re
 from tqdm import tqdm
 
 
@@ -44,6 +45,7 @@ parser.add_argument('-r','--resume_model',type=str,required=False,default='f',he
 parser.add_argument('-i','--only_inference',type=str,required=False,default='f',help='For doing only inference no training')
 parser.add_argument('-nw','--number_of_workers',type=int,required=False,default=4,help='Number_of_workers')
 parser.add_argument('-h_l','--hyper_load',type=str,required=False,default='f',help='If this flag is t then the model will load stored hyper parameters')
+parser.add_argument('-dv','--Dev_set',type=str,required=False,default='f',help='If this flag is t then the model will run on dev')
 
 parser.add_argument('-p', '--path', type=str, required=False, default='/media/data/spoof_data', help='Path to data')
 parser.add_argument('-pr','--protocol',type=int,required=False,default=1,help='Protocol for OULU')
@@ -62,8 +64,11 @@ hyp=args.hyper_load
 
 root_dir_tr=os.path.join(args.path,'Train_files')
 root_dir_te=os.path.join(args.path,'Test_files')
+root_dir_dv=os.path.join(args.path,'Dev_files')
 csv_file_tr='OULU_Train{}.csv'.format(args.protocol)
+csv_file_dv='OULU_Dev{}.csv'.format(args.protocol)
 csv_file_te='OULU_Test{}.csv'.format(args.protocol)
+
 
 
 
@@ -181,7 +186,7 @@ def save_checkpoint(state,filename='checkpoint.pth.tar'):
 ###################################
 
 ##### Dataloader ###############
-dataloader=dt.run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,batch_size,n_wor)
+dataloader=dt.run(csv_file_tr,root_dir_tr,frames_ps,csv_file_te,root_dir_te,csv_file_dv,root_dir_dv,batch_size,n_wor)
 #dataloader=dt.excution(crop)
 
 ## Defining the Loss ####
@@ -211,10 +216,11 @@ if resume=='t':
 if hyp=='t':
     try:
         print('Loading previous Hyperparameters')
-        optim.load_state_dict(checkpoint['optimizer'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
         scheduler.load_state_dict(checkpoint['scheduler'])
     except:
         print('Failed to load previous Hyperparameters')
+        import pdb;pdb.set_trace()
 
 ################################################
 if inf!='f':
@@ -353,6 +359,38 @@ def run():
             with open(folder_name+'/'+'predictions.json','w') as fp:
                 json.dump([gd_s,preds_s],fp)
 
+        preds_dev=[]
+        gd_dev=[]
+        for iteration,i in enumerate(tqdm(dataloader['dev'])):
+            phase='dev'
+            net.eval()
+        
+            input=i['image'].cuda().float()
+            labels=i['label'].cuda().float()
+            all_gds=labels.data.cpu().numpy()
+            #####Input and Output######  
+            with torch.no_grad():
+                #N_te+=len(input)
+                output=net(input,frames_ps)
+                for inn,val in enumerate(sigmoid(output).data.cpu().numpy()):
+                    preds_dev.append(val)
+                    gd_dev.append(all_gds[inn])
+        #import pdb;pdb.set_trace()
+        
+        act_results=test_re.run_dev(gd_dev,preds_dev,gd,preds,csv_file_te,csv_file_dv)
+        pers=act_results[2]*100
+        if pers >2.2 and pers<2.5:
+            import pdb;pdb.set_trace()
+            loss_best_test=loss_te_mean
+        
+            best_epoch_test=epoch+1
+            save_checkpoint({'epoch': epoch + 1,'state_dict': net.state_dict(),
+                                'loss_best_test': loss_best_test,
+                                'optimizer' : optimizer.state_dict(),
+                                'scheduler':scheduler.state_dict()
+                        
+                        },filename=folder_name+'/'+'bestcheckpoint.pth.tar')
+          
     #  submission_df = pd.DataFrame({"Ground_Truth":gd, "label": preds})
     #  submission_df.to_csv("submission.csv", index=False)
     scheduler.step()
