@@ -373,8 +373,8 @@ def run():
                 #N_te+=len(input)
                 output=net(input,frames_ps)
                 for inn,val in enumerate(sigmoid(output).data.cpu().numpy()):
-                    preds_dev.append(val)
-                    gd_dev.append(all_gds[inn])
+                    preds_dev.append(val.item())
+                    gd_dev.append(all_gds[inn].item())
         #import pdb;pdb.set_trace()
         
         act_results=test_re.run_dev(gd_dev,preds_dev,gd,preds,csv_file_te,csv_file_dv)

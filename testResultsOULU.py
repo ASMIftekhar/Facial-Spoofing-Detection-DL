@@ -14,15 +14,14 @@ def tuneHTER(GT, pred):
     for threshold in np.arange(0.01, 1, 0.01):
         preds_bin = np.where(pred > threshold, 1, 0)
         metrics = getMetrics(GT, preds_bin)
-        FAR = np.around(metrics[0], decimals=2)
-        FRR = np.around(metrics[1], decimals=2)
+        FAR = np.around(metrics[0], decimals=4)
+        FRR = np.around(metrics[1], decimals=4)
         #print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2],
         #                                                                 metrics[3]))
-        eps = 0.01
+        #eps = 0.01
         if FAR == FRR:
-             print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2], metrics[3]))
-             return threshold
-    return 0.5
+            print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2], metrics[3]))
+            return threshold
 
 
 def getNewMetrics(GT, pred, labels, threshold):
@@ -50,10 +49,6 @@ def getNewMetrics(GT, pred, labels, threshold):
     print_score = print_score/n_print
     display_score = display_score/n_display
     return [real_score, print_score, display_score]
-
-
-
-
 def run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev):
 
     labels = []
@@ -83,7 +78,6 @@ def run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev):
     return [APCER, metrics[0], final_score]
 
 
-
 if __name__ == "__main__":
     # Get predictions for test and dev set
     protocol = '1'
@@ -91,9 +85,11 @@ if __name__ == "__main__":
     CSV_file = 'OULU_Test{}.csv'.format(protocol)
     CSV_file_dev = 'OULU_Dev{}.csv'.format(protocol)
 
-    pred_test = 'oulu_resnet{}\\predictions_test.json'.format(protocol)
-    pred_dev = 'oulu_resnet{}\\predictions_dev.json'.format(protocol)
-    plot = 'oulu_resnet{}\\plot.json'.format(protocol)
+    #pred_test = 'oulu_resnet{}\\predictions_test.json'.format(protocol)
+    pred_test = 'results/resnet152_oulu/predictions.json'
+    #pred_dev = 'oulu_resnet\\predictions_dev.json'.format(protocol)
+    pred_dev = 'gt_pred_dev.json'.format(protocol)
+    plot = 'results/resnet152_oulu/plot.json'
     with open(pred_test) as handle:
         result_test = json.load(handle)
     with open(pred_dev) as handle:
@@ -114,12 +110,14 @@ if __name__ == "__main__":
     GT_dev = np.array(result_dev[0])
     pred_dev = np.array(result_dev[1])
 
-    threshold = tuneHTER(GT_dev, pred_dev)
-    threshold = 0.75
-
-    # GT and predictions on test set
     GT = np.array(result_test[0])
     pred = np.array(result_test[1])
+    run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev)
+    import pdb;pdb.set_trace()
+    threshold = tuneHTER(GT_dev, pred_dev)
+    #threshold = 0.75
+
+    # GT and predictions on test set
 
     metrics = getNewMetrics(GT, pred, labels, threshold)
 
@@ -137,9 +135,3 @@ if __name__ == "__main__":
     plt.legend(['Test', 'Train'])
     plt.title('Cost for Protocol {}'.format(protocol))
     plt.savefig("COST_prot{}.png".format(protocol))
-
-
-
-
-
-
