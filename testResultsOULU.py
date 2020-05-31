@@ -64,7 +64,7 @@ def run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev):
             type = codes[-1][0]
             labels.append(int(type))
     labels = np.array(labels)
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
   #  GT_dev = np.array(result_dev[0])
   #  pred_dev = np.array(result_dev[1])
 
