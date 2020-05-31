@@ -16,12 +16,12 @@ def tuneHTER(GT, pred):
         metrics = getMetrics(GT, preds_bin)
         FAR = np.around(metrics[0], decimals=4)
         FRR = np.around(metrics[1], decimals=4)
-        print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2],
-                                                                         metrics[3]))
+        #print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2],
+        #                                                                 metrics[3]))
         #eps = 0.01
-        # if FAR == FRR:
-        #     print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2], metrics[3]))
-        #     return threshold
+        if FAR == FRR:
+            print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2], metrics[3]))
+            return threshold
 
 
 def getNewMetrics(GT, pred, labels, threshold):
@@ -53,10 +53,10 @@ def getNewMetrics(GT, pred, labels, threshold):
 protocol = '1'
 
 CSV_file = 'OULU_Test{}.csv'.format(protocol)
-CSV_file_dev = 'OULU_Dev{}.csv'.format(protocol)
+CSV_file_dev = 'OULU_Test{}.csv'.format(protocol)
 
-pred_test = 'oulu_resnet{}\\predictions_test.json'.format(protocol)
-pred_dev = 'oulu_resnet{}\\predictions_dev.json'.format(protocol)
+pred_test = 'oulu_resnet{}\\pred_test.json'.format(protocol)
+pred_dev = 'oulu_resnet{}\\gt_pred_dev.json'.format(protocol)
 plot = 'oulu_resnet{}\\plot.json'.format(protocol)
 
 if __name__ == "__main__":
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     pred_dev = np.array(result_dev[1])
 
     threshold = tuneHTER(GT_dev, pred_dev)
-    threshold = 0.75
+    #threshold = 0.75
 
     # GT and predictions on test set
     GT = np.array(result_test[0])
@@ -104,9 +104,3 @@ if __name__ == "__main__":
     plt.legend(['Test', 'Train'])
     plt.title('Cost for Protocol {}'.format(protocol))
     plt.savefig("COST_prot{}.png".format(protocol))
-
-
-
-
-
-
