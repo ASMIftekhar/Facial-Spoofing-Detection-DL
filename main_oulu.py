@@ -286,6 +286,8 @@ def run():
                 res_info=pd.DataFrame(info_sum,columns=['Name', "Value"])
                 combine=pd.concat([res_sum,res_best],axis=1)
                 print('\n',res_info,'\n',combine)
+            #    if (iteration+1)==1:
+            #        break
             #import pdb;pdb.set_trace()
             
             plot_train.append(loss_tr_mean)  
@@ -293,7 +295,6 @@ def run():
                 loss_best_train= (loss_tr)/(iteration+1)
                 best_epoch_train=epoch+1
             #########################
-
 
         preds=[]
         gd=[]
@@ -329,6 +330,8 @@ def run():
             res_info=pd.DataFrame(info_sum,columns=['Name', "Value"])
             combine=pd.concat([res_sum,res_best],axis=1)
             print('\n',res_info,'\n',combine)
+          #  if (iteration+1)==1:
+          #      break
       
       #log_loss_best  
         plot_test.append(loss_te_mean)
@@ -373,8 +376,10 @@ def run():
                 #N_te+=len(input)
                 output=net(input,frames_ps)
                 for inn,val in enumerate(sigmoid(output).data.cpu().numpy()):
-                    preds_dev.append(val.item())
-                    gd_dev.append(all_gds[inn].item())
+                    preds_dev.append(val)
+                    gd_dev.append(all_gds[inn])
+          #  if (iteration+1)==1:
+          #      break
         #import pdb;pdb.set_trace()
         
         act_results=test_re.run_dev(gd_dev,preds_dev,gd,preds,csv_file_te,csv_file_dv)

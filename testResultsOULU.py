@@ -22,6 +22,8 @@ def tuneHTER(GT, pred):
         if FAR == FRR:
             print("Threshold {} | FAR {} | FRR {} | HTER {} | ACC {}".format(threshold, metrics[0], metrics[1], metrics[2], metrics[3]))
             return threshold
+    else:
+        return 0.5
 
 
 def getNewMetrics(GT, pred, labels, threshold):
@@ -62,7 +64,7 @@ def run_dev(GT_dev,pred_dev,GT,pred,CSV_file,CSV_file_dev):
     #import pdb;pdb.set_trace()
   #  GT_dev = np.array(result_dev[0])
   #  pred_dev = np.array(result_dev[1])
-
+    #import pdb;pdb.set_trace()
     threshold = tuneHTER(np.array(GT_dev),np.array(pred_dev))
 
     # GT and predictions on test set
