@@ -88,7 +88,7 @@ if __name__ == "__main__":
     GT = np.array(result_test[0])
     pred = np.array(result_test[1])
 
-    metrics = getNewMetrics(GT, pred, labels, threshold)
+    metrics = getNewMetrics(GT, pred, labels[1:], threshold) #LOL
 
     APCER = np.max(metrics[1:])
     final_score = (metrics[0] + APCER) / 2
