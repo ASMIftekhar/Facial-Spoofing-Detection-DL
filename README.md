@@ -1,9 +1,5 @@
 # ECE283_Project
-Download data
-```Shell
-mkdir dataset
-bash download.sh
-```
+
 Example generating Train CSV file for protocol 1
 ```Shell
 python3 createCSV2.py -p /media/data/data_spoof/Train_data -pr 1 -t Train
