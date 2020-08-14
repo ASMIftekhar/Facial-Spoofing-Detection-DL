@@ -1,7 +1,12 @@
 # Facial Spoofing Detection Using CNN + LSTM
 
 For this project, we developed a pipeline to detect Presentation Attacks using a CNN followed by a LSTM.
-We evaluate our approach using the Replay-Attack and OULU spoofing datasets, which are frequently used on the literature.
+A presentation attack is basically an attack to fool the biometric system based on face detection. For example, 
+![spoof](https://github.com/RRuschel/Facial-Spoofing-Detection-DL/blob/master/images/oulu.png) 
+
+This image is taken from [OULU](https://ieeexplore.ieee.org/document/7961798) dataset
+
+We evaluate our approach using the [Replay-Attack](https://ieeexplore.ieee.org/document/6313548) and [OULU](https://ieeexplore.ieee.org/document/7961798) spoofing datasets, which are frequently used on the literature.
 After experimenting with several architectures as our backbone for feature extraction, we achieved the following results on each dataset using ResNet101:
 
 Replay-Attack:
