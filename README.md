@@ -1,5 +1,5 @@
 # Facial Spoofing Detection Using CNN + LSTM
-This projects is a part of the course work at UCSB by [A S M Iftekhar](https://sites.google.com/view/asmiftekhar/home), Raphael Ruschel, S.Shailja.
+This project is a part of the course work at UCSB by [A S M Iftekhar](https://sites.google.com/view/asmiftekhar/home), Raphael Ruschel, S.Shailja.
 
 [Project Report](https://drive.google.com/file/d/1An77WuB_IsvwtHIrvCftuyTwcgYqe_2N/view?usp=sharing)
 
