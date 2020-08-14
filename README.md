@@ -23,7 +23,7 @@ Accuracy 99.9% and 0.1 Half-Term Error Rate (HTER)
 
 **Our Results on OULU dataset-Protocol 1**
 
-|Method| APCER (Full) | BPCER (Rare) | ACER (None-Rare)|
+|Method| APCER  | BPCER  | ACER |
 |:---:|:---:|:---:|:---:|
 |[GRADIENT](https://publications.idiap.ch/downloads/papers/2018/Boulkenafet_IJCB-2017_2017.pdf)| 1.3 |12.5 | 6.9 | 
 |[MILHP](https://www.ijcai.org/Proceedings/2018/113)|8.3 | 0.8| 4.6| 
@@ -33,7 +33,7 @@ Accuracy 99.9% and 0.1 Half-Term Error Rate (HTER)
 
 **Our Results on OULU dataset-Protocol 2**
 
-|Method| APCER (Full) | BPCER (Rare) | ACER (None-Rare)|
+|Method| APCER| BPCER | ACER |
 |:---:|:---:|:---:|:---:|
 |[GRADIENT](https://publications.idiap.ch/downloads/papers/2018/Boulkenafet_IJCB-2017_2017.pdf)| 3.1 |1.9 | 2.5 | 
 |[MILHP](https://www.ijcai.org/Proceedings/2018/113)|5.6 | 5.3| 5.4| 
