@@ -17,11 +17,6 @@ After experimenting with several architectures as our backbone for feature extra
 Accuracy 99.9% and 0.1 Half-Term Error Rate (HTER)
 
 **Our Results on OULU dataset**
-OULU protocol 1:
-APCER: 0.4 - BPCER: 4.1 - HTER: 2.29
-
-OULU Protocol 2:
-APCER: 0.83 - BPCER: 1.6 - HTER: 1.25
 
 **Our Results on OULU dataset-Protocol 1**
 
