@@ -13,10 +13,10 @@ We evaluate our approach using the [Replay-Attack](https://ieeexplore.ieee.org/d
 
 ## Results:
 After experimenting with several architectures as our backbone for feature extraction, we achieved the following results on each dataset using ResNet101 as backbone:
-**Our Results on Replay-Attack dataset**
+
+**Our Results on Replay-Attack dataset**:
 Accuracy 99.9% and 0.1 Half-Term Error Rate (HTER)
 
-**Our Results on OULU dataset**
 
 **Our Results on OULU dataset-Protocol 1**
 
