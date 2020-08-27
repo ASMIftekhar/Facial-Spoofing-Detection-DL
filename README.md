@@ -1,5 +1,5 @@
 # Facial Spoofing Detection Using CNN + LSTM
-This project is a part of the course work at UCSB by Raphael Ruschel, [A S M Iftekhar](https://sites.google.com/view/asmiftekhar/home), S.Shailja.
+This project is a part of the course work at UCSB by [Raphael Ruschel](https://scholar.google.com.br/citations?user=WOWnd8EAAAAJ), [A S M Iftekhar](https://sites.google.com/view/asmiftekhar/home), S.Shailja.
 
 
 For this project, we developed a pipeline to detect Presentation Attacks using a CNN followed by a LSTM.
